@@ -1,17 +1,16 @@
----Конверсия в заказ CPA клика---
 
 SELECT 
     count(clk.rowid) AS cpa_clicks,
     count(distinct ord.order_id) AS orders,
     count(distinct ord.order_id)/count(clk.rowid) AS conv_rate
 
-FROM robot_market_logs.cpa_clicks AS clk
+FROM robot_market_logs.cpa_clicks AS clk -- CPC клики
 
 LEFT JOIN (
     SELECT *
     FROM analyst.orders_dict 
     WHERE 
-       creation_day BETWEEN '2016-10-01' AND '2016-11-29'
+       creation_day BETWEEN '2016-10-01' AND '2016-11-29' -- период
        AND NOT order_is_fake
        AND NOT buyer_is_fake 
        AND NOT shop_is_fake
